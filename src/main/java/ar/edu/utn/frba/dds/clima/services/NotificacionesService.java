@@ -2,9 +2,7 @@ package ar.edu.utn.frba.dds.clima.services;
 
 import ar.edu.utn.frba.dds.clima.config.AlertProperties;
 import ar.edu.utn.frba.dds.clima.entities.ClimaRegistro;
-import java.util.ArrayList;
 import java.util.List;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
@@ -19,8 +17,8 @@ public class NotificacionesService {
     this.mailSender = mailSender;
   }
 
-  public void notificarAlerta(ClimaRegistro clima){
-    for(String destinatario:mails){
+  public void notificarAlerta(ClimaRegistro clima) {
+    for (String destinatario : mails) {
       SimpleMailMessage mensaje = new SimpleMailMessage();
       mensaje.setTo(destinatario);
       mensaje.setSubject("Alerta Climática!!!");
@@ -28,7 +26,8 @@ public class NotificacionesService {
       mailSender.send(mensaje);
     }
   }
-  private String mensajeDeAlerta(ClimaRegistro clima){
+
+  private String mensajeDeAlerta(ClimaRegistro clima) {
     return String.format("ALERTA!!! TEMPERATURA: %.1f° HUMEDAD: %d%% CONDICION: %s",
         clima.getTemperatura(), clima.getHumedad(), clima.getCondicion());
   }

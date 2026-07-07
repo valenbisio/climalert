@@ -11,18 +11,22 @@ public class AlertaService {
   private ClimaRegistro ultimoRegistroAlertado;
   private final NotificacionesService notificacionesService;
 
-  public AlertaService(ClimaRepository climaRepository, NotificacionesService notificacionesService) {
+  public AlertaService(
+      ClimaRepository climaRepository,
+      NotificacionesService notificacionesService) {
     this.climaRepository = climaRepository;
     this.notificacionesService = notificacionesService;
   }
 
-  @Scheduled(fixedRate = 60000) // 1 minuto en milisegundos
+  @Scheduled(fixedRate = 60000) //60000 1 minuto en milisegundos
   public void verificarAlerta() {
     ClimaRegistro ultimoClima = climaRepository.obtenerUltimo();
-    if (ultimoClima == null) return;
+    if (ultimoClima == null) {
+      return;
+    }
 
-    boolean esNuevoRegistro = ultimoRegistroAlertado == null ||
-        !ultimoRegistroAlertado.getFechaRegistrada().equals(ultimoClima.getFechaRegistrada());
+    boolean esNuevoRegistro = ultimoRegistroAlertado == null
+        || !ultimoRegistroAlertado.getFechaRegistrada().equals(ultimoClima.getFechaRegistrada());
 
     if (esNuevoRegistro && ultimoClima.getTemperatura() > 35 && ultimoClima.getHumedad() > 60) {
       this.ultimoRegistroAlertado = ultimoClima;

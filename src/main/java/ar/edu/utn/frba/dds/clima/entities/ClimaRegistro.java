@@ -8,12 +8,11 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ClimaRegistro {
-  private int id; //hace falta?
+  private int id;
   private float temperatura;
   private int humedad;
   private String condicion;
   private LocalDateTime fechaRegistrada;
-
 
   public static ClimaRegistro toClimaRegistro(WeatherResponse dto) {
     ClimaRegistro registro = new ClimaRegistro();
@@ -23,5 +22,4 @@ public class ClimaRegistro {
     registro.setFechaRegistrada(LocalDateTime.now());
     return registro;
   }
-
 }

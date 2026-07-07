@@ -5,6 +5,8 @@ import lombok.Getter;
 @Getter
 public class WeatherResponse {
   private float temperatura;
-  private int humedad ;
+  private int humedad;
   private String condicion;
 }
+
+
